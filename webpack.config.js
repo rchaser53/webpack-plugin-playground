@@ -8,7 +8,7 @@ module.exports = {
   context: path.resolve(__dirname, "./test"),
   devtool: "inline-source-map",
   entry: {
-    index: "./index.js"
+    index: "./index.ts"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -16,10 +16,17 @@ module.exports = {
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".html", ".js"]
+    extensions: [".html", ".ts", ".js"]
   },
   module: {
-    rules: []
+    rules: [
+      {
+        test: /\.ts$/,
+        loaders: ["ts-loader"],
+        include: path.join(__dirname, "test"),
+        exclude: [/node_modules/]
+      },
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -2,10 +2,34 @@ const pluginName = 'HelloworldPlugin';
 
 class HelloworldPlugin {
   apply(compiler) {
-    compiler.hooks.run.tap(pluginName, compilation => {
-      console.log('Hello Plugin!');
+    // for build
+    compiler.hooks.run.tap(pluginName, (compiler) => {
+      // console.log(compiler, compiler.context)
     });
+
+    // for watch
+    compiler.hooks.watchRun.tap(pluginName, (compiler) => {
+      // console.log(compiler, compiler.context)
+    });
+
+    compiler.hooks.failed.tap(pluginName, (err) => {
+      console.log('failed');
+      console.error(err);
+    })
+
+    // only since second time path error
+    compiler.hooks.invalid.tap(pluginName, (err) => {
+      console.log('invalid');
+      console.error(err);
+    })
   }
 }
 
 module.exports = HelloworldPlugin;
+
+// compiler.hooks.[failedModule.tap("pluginName", (err) => {
+//   console.log(123);
+//   console.error(err);
+// });
+// compiler.hooks.failed.call(err);
+// this.hooks.failedEntry.call(entry, name, err);
