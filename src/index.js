@@ -23,9 +23,12 @@ class HelloworldPlugin {
       console.error(err);
     })
 
-    compiler.hooks.done.tap(pluginName, (stat) => {
-      const hasErrors = stat.hasErrors();
-      return;
+    compiler.hooks.done.tap(pluginName, (stats) => {
+      const hasErrors = stats.hasErrors();
+
+      if (hasErrors) {
+        console.log(stats.compilation.errors);
+      }
     });
   }
 }
