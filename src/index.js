@@ -22,8 +22,14 @@ class HelloworldPlugin {
       console.log('invalid');
       console.error(err);
     })
+
+    compiler.hooks.done.tap(pluginName, (stat) => {
+      const hasErrors = stat.hasErrors();
+      return;
+    });
   }
 }
+
 
 module.exports = HelloworldPlugin;
 
